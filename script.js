@@ -10,17 +10,16 @@ class Bingo {
         this.selectedDivs = [];
     }
 
-    enterMouse(e){
+    enterMouse = (e) =>{
         if(!this.eve){
             this.hoveredDiv = e.target;
-            // console.log(this.counter);
             this.hoveredDiv.innerText = this.counter;
         }else{
             
         }
     }
 
-    leaveMouse(e){
+    leaveMouse = (e) =>{
         if(!this.eve){
             this.hoveredDiv = e.target;
             this.hoveredDiv.innerText = "";
@@ -29,7 +28,7 @@ class Bingo {
         }
     }
 
-    clickDiv(e){
+    clickDiv = (e) =>{
         if(!this.eve){
             this.hoveredDiv = e.target;
             this.selectedDivs.push(this.hoveredDiv.id);
@@ -39,6 +38,10 @@ class Bingo {
             this.hoveredDiv.style.color = "#000";
             this.hoveredDiv.style.cursor = "default";
             this.counter++;
+            if(this.counter === 26){
+                container.removeEventListener("mouseenter", FirstHalf.parentEvent, true);
+                autoBtn.disabled = true;
+            }
         }else{
             this.enterMouse(1, hoveredDiv);
             this.newDiv.style.opacity = "1";
@@ -56,11 +59,10 @@ class Bingo {
     parentEvent = (e)=>{
         this.hoveredDiv = e.target;
         if(this.hoveredDiv.classList[0] === "boxes"){
-            console.log(this.hoveredDiv);
             let i = 0;
+            this.divFound = false;
             do{
                 if(this.hoveredDiv.id === this.selectedDivs[i]){
-                    console.log(this.selectedDivs);
                     this.divFound = true;
                     break;
                 }
@@ -83,7 +85,6 @@ autoBtn.addEventListener("click", ()=>{
 
     for(let i = 1; i <= 25; i++){
         randNum = Math.floor(Math.random() * n );
-            // console.log(randNum);
             let aDivId = "box" + i;
             let ele = document.getElementById(aDivId);
             ele.innerText = arr[randNum];
@@ -95,7 +96,6 @@ autoBtn.addEventListener("click", ()=>{
             ele.style.color = "#000";
             ele.style.cursor = "default";
     }
-
     container.removeEventListener("mouseenter", FirstHalf.parentEvent, true);
 });
 
