@@ -1,25 +1,25 @@
 const container = document.querySelector(".container"),
-autoBtn = document.querySelector("#auto"),
-allBox = document.querySelectorAll(".boxes"),
-rstBtn = document.querySelector("#reset");
+    autoBtn = document.querySelector("#auto"),
+    allBox = document.querySelectorAll(".boxes"),
+    rstBtn = document.querySelector("#reset");
 
 
 class Bingo {
-    constructor(eve){
+    constructor(eve) {
         this.eve = eve;
         this.divFound = false;
         this.counter = 1;
         this.selectedDivs = [];
     }
 
-    enterMouse = (e) =>{
-        if(!this.eve){
+    enterMouse = (e) => {
+        if (!this.eve) {
             this.hoveredDiv.style.cursor = "pointer";
             this.hoveredDiv = e.target;
             this.hoveredDiv.innerText = this.counter;
-        }else{
+        } else {
             console.log(this.hoveredDiv.childElementCount);
-            if(this.hoveredDiv.childElementCount === 0){
+            if (this.hoveredDiv.childElementCount === 0) {
                 // console.log( toString(allBox[0].childNodes) );
                 this.hoveredDiv.style.cursor = "pointer";
                 this.childOne = document.createElement("div");
@@ -33,18 +33,18 @@ class Bingo {
     }
 
     leaveMouse = (e) => {
-        if(!this.eve){
+        if (!this.eve) {
             this.hoveredDiv = e.target;
             this.hoveredDiv.innerText = "";
-        }else{
-            while(this.hoveredDiv.firstChild) {
-                this.hoveredDiv.removeChild(this.hoveredDiv.firstChild); 
+        } else {
+            while (this.hoveredDiv.firstChild) {
+                this.hoveredDiv.removeChild(this.hoveredDiv.firstChild);
             }
         }
     }
 
     clickDiv = (e) => {
-        if(!this.eve){
+        if (!this.eve) {
             this.hoveredDiv = e.target;
             this.selectedDivs.push(this.hoveredDiv.id);
             this.hoveredDiv.removeEventListener("mouseenter", this.enterMouse, true);
@@ -53,18 +53,18 @@ class Bingo {
             this.hoveredDiv.style.color = "#000";
             this.hoveredDiv.style.cursor = "default";
             this.counter++;
-            if(this.counter === 26){
+            if (this.counter === 26) {
                 container.removeEventListener("mouseenter", firstHalf.parentEvent, true);
                 autoBtn.disabled = true;
             }
-        }else{
+        } else {
             this.childOne.style.opacity = "1";
             this.childTwo.style.opacity = "1";
             this.hoveredDiv.removeEventListener("mouseenter", this.enterMouse, true);
         }
     }
 
-    addEventsDivs(){
+    addEventsDivs() {
         this.hoveredDiv.addEventListener("mouseenter", this.enterMouse, true);
         this.hoveredDiv.addEventListener("mouseleave", this.leaveMouse, true);
         this.hoveredDiv.addEventListener("click", this.clickDiv, true);
@@ -73,18 +73,18 @@ class Bingo {
 
     parentEvent = (e) => {
         this.hoveredDiv = e.target;
-        if(this.hoveredDiv.classList[0] === "boxes"){
+        if (this.hoveredDiv.classList[0] === "boxes") {
             let i = 0;
             this.divFound = false;
-            do{
-                if(this.hoveredDiv.id === this.selectedDivs[i]){
+            do {
+                if (this.hoveredDiv.id === this.selectedDivs[i]) {
                     this.divFound = true;
                     break;
                 }
                 i++;
-            }while(i < this.selectedDivs.length)
+            } while (i < this.selectedDivs.length)
 
-            if(!this.divFound){
+            if (!this.divFound) {
                 this.addEventsDivs();
             }
         }
@@ -103,12 +103,15 @@ let startGame = () => {
     container.addEventListener("mouseenter", secondHalf.parentEvent, true);
 }
 
-autoBtn.addEventListener("click", ()=>{
-    let randNum, n = 25, arr = [];
-    for(let i = 1; i <= 25; i++){ arr[i - 1] = i; }
+autoBtn.addEventListener("click", () => {
+    let randNum, n = 25,
+        arr = [];
+    for (let i = 1; i <= 25; i++) {
+        arr[i - 1] = i;
+    }
 
     allBox.forEach(box => {
-        randNum = Math.floor(Math.random() * n );
+        randNum = Math.floor(Math.random() * n);
         box.innerText = arr[randNum];
         arr.splice(randNum, 1);
         n--;
