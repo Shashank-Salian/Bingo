@@ -5,7 +5,7 @@
 }
 
 body{
-    background: #bae8e8;
+    background: #d7ecff;
     height: 100vh;
 }
 
@@ -26,13 +26,14 @@ body{
 }
 
 .container{
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     width: 300px;
     height: 350px;
-    border: 1px solid black;
+    border: 1px solid #1e2843;
     margin: auto;
-    transform: translateY(50%);
+    top: calc(50% - 185px);
 }
 
 .boxes{
@@ -54,24 +55,30 @@ body{
     position: relative;
 }
 
-#auto{
+.btn-container{
+    text-align: center;
     position: relative;
-    left: calc(50% - 50px);
-    top: 100px;
+    top: 13%;
+}
+
+.btn{
     cursor: pointer;
     height: 40px;
     width: 112px;
     border: 1px solid black;
     border-radius: 6px;
-    background-color: #e3f6f5;
-    color: black;
-    font-size: 1rem;
+    background-color: #1e2843;
+    color: white;
+    font-size: 1em;
     text-align: center;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: all 0.3s ease-in-out;
 }
 
-#auto:active{
-    border: 1px dashed black;
-    color: black;
+.btn:hover{
+    background-color: #1a2b5c;
 }
 
 .selected{
@@ -79,7 +86,7 @@ body{
     left: calc(50% - 1px);
     transform: rotate(45deg);
     color: rgba(0, 0, 0,0.7);
-    z-index: -3;
+    z-index: 10;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -95,7 +102,7 @@ body{
     left: calc(50% - 1px);
     transform: rotate(-45deg);
     color: rgba(0, 0, 0,0.7);
-    z-index: -3;
+    z-index: 10;
     display: flex;
     justify-content: center;
     align-items: center;
