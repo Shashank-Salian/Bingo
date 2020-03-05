@@ -129,8 +129,8 @@ autoBtn.addEventListener("click", () => {
 rstBtn.addEventListener("click", () => {
     allBox.forEach(box => {
         box.innerText = "";
-        firstHalf.counter = 1;
-        firstHalf.selectedDivs = [];
-        container.addEventListener("mouseenter", firstHalf.parentEvent, true);
     });
+    firstHalf.counter = 1;
+    firstHalf.selectedDivs = [];
+    container.addEventListener("mouseenter", firstHalf.parentEvent, true);
 });
