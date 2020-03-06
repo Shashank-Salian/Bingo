@@ -12,38 +12,18 @@ class Bingo {
         this.selectedDivs = [];
     }
 
-    enterMouse = (e) => {
-        if (!this.eve) {
-            this.hoveredDiv.style.cursor = "pointer";
-            this.hoveredDiv = e.target;
-            this.hoveredDiv.innerText = this.counter;
-        } else {
-            console.log(this.hoveredDiv.childElementCount);
-            if (this.hoveredDiv.childElementCount === 0) {
-                // console.log( toString(allBox[0].childNodes) );
-                this.hoveredDiv.style.cursor = "pointer";
-                this.childOne = document.createElement("div");
-                this.childTwo = document.createElement("div");
-                this.hoveredDiv.appendChild(this.childOne);
-                this.hoveredDiv.appendChild(this.childTwo);
-                this.childOne.classList += "selected";
-                this.childTwo.classList += "selected2";
-            }
-        }
+    enterMouse = e => {
+        this.hoveredDiv.style.cursor = "pointer";
+        this.hoveredDiv = e.target;
+        this.hoveredDiv.innerText = this.counter;
     }
 
-    leaveMouse = (e) => {
-        if (!this.eve) {
-            this.hoveredDiv = e.target;
-            this.hoveredDiv.innerText = "";
-        } else {
-            while (this.hoveredDiv.firstChild) {
-                this.hoveredDiv.removeChild(this.hoveredDiv.firstChild);
-            }
-        }
+    leaveMouse = e => {
+        this.hoveredDiv = e.target;
+        this.hoveredDiv.innerText = "";
     }
 
-    clickDiv = (e) => {
+    clickDiv = e => {
         if (!this.eve) {
             this.hoveredDiv = e.target;
             this.selectedDivs.push(this.hoveredDiv.id);
@@ -56,11 +36,10 @@ class Bingo {
             if (this.counter === 26) {
                 container.removeEventListener("mouseenter", firstHalf.parentEvent, true);
                 autoBtn.disabled = true;
+                startGame();
             }
         } else {
-            this.childOne.style.opacity = "1";
-            this.childTwo.style.opacity = "1";
-            this.hoveredDiv.removeEventListener("mouseenter", this.enterMouse, true);
+            this.hoveredDiv.style.pointerEvents = "none";
         }
     }
 
@@ -71,7 +50,7 @@ class Bingo {
         // console.log(this.hoveredDiv);
     }
 
-    parentEvent = (e) => {
+    parentEvent = e => {
         this.hoveredDiv = e.target;
         if (this.hoveredDiv.classList[0] === "boxes") {
             let i = 0;
@@ -98,9 +77,26 @@ const firstHalf = new Bingo(0);
 container.addEventListener("mouseenter", firstHalf.parentEvent, true);
 
 
-let startGame = () => {
-    const secondHalf = new Bingo(1);
+startGame = () => {
+    container.removeEventListener("mouseenter", firstHalf.parentEvent, true);
+    firstHalf.selectedDivs = [];
+    window.secondHalf = new Bingo(1);
+    addCross();
     container.addEventListener("mouseenter", secondHalf.parentEvent, true);
+}
+
+addCross = () => {
+    allBox.forEach(box => {
+        box.style.cursor = "pointer";
+        let childOne = document.createElement("div");
+        let childTwo = document.createElement("div");
+        box.appendChild(childOne);
+        box.appendChild(childTwo);
+        childOne.classList += "selected";
+        childTwo.classList += "selected2";
+        window.secondHalf.selectedDivs.push(box.id);
+        box.removeEventListener("mouseenter", secondHalf.enterMouse, true);
+    });
 }
 
 autoBtn.addEventListener("click", () => {
@@ -121,8 +117,7 @@ autoBtn.addEventListener("click", () => {
         box.style.color = "#000";
         box.style.cursor = "default";
     });
-    container.removeEventListener("mouseenter", firstHalf.parentEvent, true);
-    startGame();
+    startGame()
 });
 
 
@@ -132,5 +127,6 @@ rstBtn.addEventListener("click", () => {
     });
     firstHalf.counter = 1;
     firstHalf.selectedDivs = [];
+    container.removeEventListener("mouseenter", secondHalf.parentEvent, true);
     container.addEventListener("mouseenter", firstHalf.parentEvent, true);
 });
