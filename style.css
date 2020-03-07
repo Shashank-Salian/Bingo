@@ -53,6 +53,7 @@ body{
     align-items: center;
     transition: all 0.3s ease-in-out;
     position: relative;
+    z-index: 1000;
 }
 
 .btn-container{
@@ -82,11 +83,11 @@ body{
 }
 
 
-.boxes:hover .selected2{
+.boxes:hover .cross2{
+    transform: rotate(-45deg);
     position: absolute;
     left: calc(50% - 1px);
     color: rgba(0, 0, 0,0.7);
-    z-index: 10;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -94,10 +95,24 @@ body{
     height: 45px;
     background-color: black;
     transition: all 0.3s ease-in-out;
-    transform: scaleX(1) rotate(-45deg);
 }
 
-.boxes:hover .selected{
+.boxes:hover .cross{
+    transform: rotate(45deg);
+    position: absolute;
+    left: calc(50% - 1px);
+    color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2px;
+    height: 45px;
+    background-color: black;
+    transition: all 0.3s ease-in-out;
+}
+
+.fix-cross{
+    transform: rotate(45deg);
     position: absolute;
     left: calc(50% - 1px);
     color: rgb(0, 0, 0);
@@ -108,6 +123,18 @@ body{
     width: 2px;
     height: 45px;
     background-color: black;
-    transition: all 0.3s ease-in-out;
-    transform: scaleX(1) rotate(45deg);
+}
+
+.fix-cross2{
+    transform: rotate(-45deg);
+    position: absolute;
+    left: calc(50% - 1px);
+    color: rgba(0, 0, 0,0.7);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2px;
+    height: 45px;
+    background-color: black;
 }
