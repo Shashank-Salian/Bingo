@@ -4,6 +4,50 @@ const container = document.querySelector(".container"),
     rstBtn = document.querySelector("#reset");
 
 
+addCross = () => {
+    allBox.forEach(box => {
+        box.style.cursor = "pointer";
+        let childOne = document.createElement("div");
+        let childTwo = document.createElement("div");
+        box.appendChild(childOne);
+        box.appendChild(childTwo);
+        childOne.classList += "cross";
+        childTwo.classList += "cross2";
+        window.secondHalf.selectedDivs.push(box.id);
+        box.removeEventListener("mouseenter", secondHalf.enterMouse, true);
+    });
+}
+    
+autoBtn.addEventListener("click", () => {
+    let randNum, n = 25,
+        arr = [];
+    for (let i = 1; i <= 25; i++) arr[i - 1] = i;
+
+    allBox.forEach(box => {
+        randNum = Math.floor(Math.random() * n);
+        box.innerText = arr[randNum];
+        arr.splice(randNum, 1);
+        n--;
+        box.removeEventListener("mouseenter", firstHalf.enterMouse, true);
+        box.removeEventListener("mouseleave", firstHalf.leaveMouse, true);
+        box.removeEventListener("click", firstHalf.clickDiv, true);
+        box.style.color = "#000";
+        box.style.cursor = "default";
+    });
+    startGame()
+});
+    
+    
+rstBtn.addEventListener("click", () => {
+        allBox.forEach(box => {
+        box.innerText = "";
+    });
+    firstHalf.counter = 1;
+    firstHalf.selectedDivs = [];
+    container.removeEventListener("mouseenter", secondHalf.parentEvent, true);
+    container.addEventListener("mouseenter", firstHalf.parentEvent, true);
+});
+
 class Bingo {
     constructor(eve) {
         this.eve = eve;
@@ -39,19 +83,30 @@ class Bingo {
                 startGame();
             }
         } else {
-            this.hoveredDiv.style.pointerEvents = "none";
+            if(this.hoveredDiv.classList[0] === "cross" || this.hoveredDiv.classList[0] === "cross2"){
+                this.hoveredDiv = this.hoveredDiv.parentNode;
+            }
+            this.selectedDivs.push(this.hoveredDiv.id);
+            const cross = this.hoveredDiv.children;
+            cross[0].classList = "fix-cross";
+            cross[1].classList = "fix-cross2";
+            this.hoveredDiv.removeEventListener("click", this.clickDiv, true);
         }
     }
 
     addEventsDivs() {
-        this.hoveredDiv.addEventListener("mouseenter", this.enterMouse, true);
-        this.hoveredDiv.addEventListener("mouseleave", this.leaveMouse, true);
-        this.hoveredDiv.addEventListener("click", this.clickDiv, true);
-        // console.log(this.hoveredDiv);
+        if(!this.eve){
+            this.hoveredDiv.addEventListener("mouseenter", this.enterMouse, true);
+            this.hoveredDiv.addEventListener("mouseleave", this.leaveMouse, true);
+            this.hoveredDiv.addEventListener("click", this.clickDiv, true);
+        } else {
+            this.hoveredDiv.addEventListener("click", this.clickDiv, true);
+        }
     }
 
     parentEvent = e => {
         this.hoveredDiv = e.target;
+        // console.log(this.hoveredDiv);
         if (this.hoveredDiv.classList[0] === "boxes") {
             let i = 0;
             this.divFound = false;
@@ -79,54 +134,8 @@ container.addEventListener("mouseenter", firstHalf.parentEvent, true);
 
 startGame = () => {
     container.removeEventListener("mouseenter", firstHalf.parentEvent, true);
-    firstHalf.selectedDivs = [];
     window.secondHalf = new Bingo(1);
     addCross();
+    secondHalf.selectedDivs = [];
     container.addEventListener("mouseenter", secondHalf.parentEvent, true);
 }
-
-addCross = () => {
-    allBox.forEach(box => {
-        box.style.cursor = "pointer";
-        let childOne = document.createElement("div");
-        let childTwo = document.createElement("div");
-        box.appendChild(childOne);
-        box.appendChild(childTwo);
-        childOne.classList += "selected";
-        childTwo.classList += "selected2";
-        window.secondHalf.selectedDivs.push(box.id);
-        box.removeEventListener("mouseenter", secondHalf.enterMouse, true);
-    });
-}
-
-autoBtn.addEventListener("click", () => {
-    let randNum, n = 25,
-        arr = [];
-    for (let i = 1; i <= 25; i++) {
-        arr[i - 1] = i;
-    }
-
-    allBox.forEach(box => {
-        randNum = Math.floor(Math.random() * n);
-        box.innerText = arr[randNum];
-        arr.splice(randNum, 1);
-        n--;
-        box.removeEventListener("mouseenter", firstHalf.enterMouse, true);
-        box.removeEventListener("mouseleave", firstHalf.leaveMouse, true);
-        box.removeEventListener("click", firstHalf.clickDiv, true);
-        box.style.color = "#000";
-        box.style.cursor = "default";
-    });
-    startGame()
-});
-
-
-rstBtn.addEventListener("click", () => {
-    allBox.forEach(box => {
-        box.innerText = "";
-    });
-    firstHalf.counter = 1;
-    firstHalf.selectedDivs = [];
-    container.removeEventListener("mouseenter", secondHalf.parentEvent, true);
-    container.addEventListener("mouseenter", firstHalf.parentEvent, true);
-});
