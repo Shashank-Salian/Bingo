@@ -138,9 +138,7 @@ container.addEventListener("mouseenter", firstHalf.parentEvent, true);
 startGame = () => {
     container.removeEventListener("mouseenter", firstHalf.parentEvent, true);
     window.secondHalf = new Bingo(1);
+    addCross();
     secondHalf.selectedDivs = [];
-    setTimeout(() =>{
-        container.addEventListener("mouseenter", secondHalf.parentEvent, true);
-        addCross();
-    }, 1000);
+    container.addEventListener("mouseenter", secondHalf.parentEvent, true);
 }
