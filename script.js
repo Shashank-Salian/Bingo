@@ -34,7 +34,7 @@ autoBtn.addEventListener("click", () => {
         box.style.color = "#000";
         box.style.cursor = "default";
     });
-    startGame()
+    startGame();
 });
     
     
@@ -57,6 +57,7 @@ class Bingo {
     }
 
     enterMouse = e => {
+        this.hoveredDiv.style.color = "rgba(0,0,0,0.7)"
         this.hoveredDiv.style.cursor = "pointer";
         this.hoveredDiv = e.target;
         this.hoveredDiv.innerText = this.counter;
@@ -83,6 +84,8 @@ class Bingo {
                 startGame();
             }
         } else {
+            // rstBtn.disabled = true;
+            autoBtn.disabled = true;
             if(this.hoveredDiv.classList[0] === "cross" || this.hoveredDiv.classList[0] === "cross2"){
                 this.hoveredDiv = this.hoveredDiv.parentNode;
             }
@@ -135,7 +138,9 @@ container.addEventListener("mouseenter", firstHalf.parentEvent, true);
 startGame = () => {
     container.removeEventListener("mouseenter", firstHalf.parentEvent, true);
     window.secondHalf = new Bingo(1);
-    addCross();
     secondHalf.selectedDivs = [];
-    container.addEventListener("mouseenter", secondHalf.parentEvent, true);
+    setTimeout(() =>{
+        container.addEventListener("mouseenter", secondHalf.parentEvent, true);
+        addCross();
+    }, 1000);
 }
