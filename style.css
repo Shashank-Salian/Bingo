@@ -1,140 +1,138 @@
 *{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 body{
-    background: #d7ecff;
-    height: 100vh;
+  background: #d7ecff;
+  height: 100vh;
 }
 
 .heading{
-    font-family: monospace, sans-serif;
-    width: 300px;
-    display: flex;
-    justify-content: space-around;
-    font-size: 2.5rem;
-    border-bottom: 2px solid black;
+  font-family: monospace, sans-serif;
+  width: 300px;
+  display: flex;
+  justify-content: space-around;
+  font-size: 2.5rem;
+  border-bottom: 2px solid black;
 }
 
 .heading span{
-    display: inline;
-    -moz-user-select: none;
-    user-select: none;
-    -webkit-user-select: none;
+  display: inline;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .container{
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    width: 300px;
-    height: 350px;
-    border: 1px solid #1e2843;
-    margin: auto;
-    top: calc(50% - 185px);
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 300px;
+  height: 350px;
+  border: 1px solid #1e2843;
+  margin: auto;
+  top: calc(50% - 185px);
 }
 
 .boxes{
-    color: rgba(0, 0, 0, 0.7);
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    border: 1px solid black;
-    margin: auto;
-    -moz-user-select: none;
-    user-select: none;
-    -webkit-user-select: none;
-    font-size: 2rem;
-    font-family: sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s ease-in-out;
-    position: relative;
-    z-index: 1000;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+  margin: auto;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+  font-size: 2rem;
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1000;
 }
 
 .btn-container{
-    text-align: center;
-    position: relative;
-    top: 13%;
+  text-align: center;
+  position: relative;
+  top: 13%;
 }
 
 .btn{
-    cursor: pointer;
-    height: 40px;
-    width: 112px;
-    border: 1px solid black;
-    border-radius: 6px;
-    background-color: #1e2843;
-    color: white;
-    font-size: 1em;
-    text-align: center;
-    -moz-user-select: none;
-    user-select: none;
-    -webkit-user-select: none;
-    transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  height: 40px;
+  width: 112px;
+  border: 1px solid black;
+  border-radius: 6px;
+  background-color: #1e2843;
+  color: white;
+  font-size: 1em;
+  text-align: center;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: all 0.3s ease-in-out;
 }
 
 .btn:hover{
-    background-color: #1a2b5c;
+  background-color: #1a2b5c;
 }
 
 
-.boxes:hover .cross2{
-    transform: rotate(-45deg);
-    position: absolute;
-    left: calc(50% - 1px);
-    color: rgba(0, 0, 0,0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 2px;
-    height: 45px;
-    background-color: black;
-    transition: all 0.3s ease-in-out;
+.cross2{
+  transform: rotate(-45deg);
+  position: absolute;
+  left: calc(50% - 1px);
+  color: rgba(0, 0, 0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2px;
+  height: 45px;
+  background-color: black;
+  transition: all 0.3s ease-in-out;
 }
 
-.boxes:hover .cross{
-    transform: rotate(45deg);
-    position: absolute;
-    left: calc(50% - 1px);
-    color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 2px;
-    height: 45px;
-    background-color: black;
-    transition: all 0.3s ease-in-out;
+.cross{
+  transform: rotate(45deg);
+  position: absolute;
+  left: calc(50% - 1px);
+  color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2px;
+  height: 45px;
+  background-color: black;
+  transition: all 0.3s ease-in-out;
 }
 
 .fix-cross{
-    transform: rotate(45deg);
-    position: absolute;
-    left: calc(50% - 1px);
-    color: rgb(0, 0, 0);
-    z-index: 10;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 2px;
-    height: 45px;
-    background-color: black;
+  transform: rotate(45deg);
+  position: absolute;
+  left: calc(50% - 1px);
+  color: rgb(0, 0, 0);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2px;
+  height: 45px;
+  background-color: black;
 }
 
 .fix-cross2{
-    transform: rotate(-45deg);
-    position: absolute;
-    left: calc(50% - 1px);
-    color: rgba(0, 0, 0,0.7);
-    z-index: 10;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 2px;
-    height: 45px;
-    background-color: black;
+  transform: rotate(-45deg);
+  position: absolute;
+  left: calc(50% - 1px);
+  color: rgba(0, 0, 0,0.7);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2px;
+  height: 45px;
+  background-color: black;
 }
