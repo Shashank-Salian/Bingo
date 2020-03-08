@@ -15,8 +15,10 @@ autoBtn.addEventListener("click", () => {
     box.innerText = arr[randNum];
     arr.splice(randNum, 1);
     n--;
-    box.removeEventListener("mouseenter", addNum, true);
-    box.removeEventListener("mouseleave", remNum, true);
+    if(!isMobile){
+      box.removeEventListener("mouseenter", addNum, true);
+      box.removeEventListener("mouseleave", remNum, true);
+    }
     box.removeEventListener("click", fixNum, true);
     box.style.color = "#000";
     box.style.cursor = "default";
@@ -46,12 +48,18 @@ remNum = () => {
 }
 
 fixNum = () => {
-  hoveredDiv.removeEventListener("mouseenter", addNum, true);
-  hoveredDiv.removeEventListener("mouseleave", remNum, true);
+  if(!isMobile){
+    hoveredDiv.removeEventListener("mouseenter", addNum, true);
+    hoveredDiv.removeEventListener("mouseleave", remNum, true);
+  }
   hoveredDiv.removeEventListener("click", fixNum, true);
   hoveredDiv.style.color = "#000";
   hoveredDiv.style.cursor = "default";
   counter++;
+  if(counter === 26){
+    autoBtn.disabled = true;
+    startGame();
+  }
 }
 
 addEvent = () => {
@@ -66,14 +74,33 @@ addEvent = () => {
 
 addCross = e => {
   hoveredDiv = e.target;
-  if(hoveredDiv.classList !== "boxes") hoveredDiv = hoveredDiv.parentNode;
-  hoveredDiv.children[0].classList += "cross";
-  hoveredDiv.children[1].classList += "cross2"
+  if(hoveredDiv.classList[0] !== "boxes") hoveredDiv = hoveredDiv.parentNode;
+  hoveredDiv.children[0].classList = "cross";
+  hoveredDiv.children[1].classList = "cross2"
 }
 
-remCross = () => {}
+remCross = e => {
+  hoveredDiv = e.target;
+  if(hoveredDiv.classList == "cross" || hoveredDiv.classList == "cross2"){
+    let e = {
+      target: hoveredDiv.parentNode
+    };
+    addCross(e);
+  } else {
+    hoveredDiv.children[0].classList = "";
+    hoveredDiv.children[1].classList = "";
+  }
+}
 
-fixCross = () => {}
+fixCross = () => {
+  hoveredDiv.children[0].classList = "fix-cross";
+  hoveredDiv.children[1].classList = "fix-cross2";
+  if(!isMobile){
+    hoveredDiv.removeEventListener("mouseenter", addCross, true);
+    hoveredDiv.removeEventListener("mouseleave", remCross, true);
+  }
+  hoveredDiv.removeEventListener("click", fixCross, true);
+}
 
 addCrossEvent = () => {
   allBox.forEach(box => {
