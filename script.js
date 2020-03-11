@@ -1,7 +1,8 @@
 const container = document.querySelector(".container"),
   autoBtn = document.querySelector("#auto"),
   allBox = document.querySelectorAll(".boxes"),
-  rstBtn = document.querySelector("#reset");
+  rstBtn = document.querySelector("#reset"),
+  replay = document.querySelector("#replay");
 
 let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent), counter = 1, hoveredDiv;
 
@@ -24,15 +25,32 @@ autoBtn.addEventListener("click", () => {
   });
   startGame()
 });
-      
-      
+
+
 rstBtn.addEventListener("click", () => {
+  autoBtn.disabled = false;
   allBox.forEach(box => {
     box.innerText = "";
+    box.removeEventListener("mouseenter", addCross, true);
+    box.removeEventListener("mouseleave", remCross, true);
+    box.removeEventListener("click", fixCross, true);
   });
   counter = 1;
   addEvent();
 });
+
+replay.addEventListener("click", () => {
+  allBox.forEach(box => {
+    box.innerText = "";
+    box.removeEventListener("mouseenter", addCross, true);
+    box.removeEventListener("mouseleave", remCross, true);
+    box.removeEventListener("click", fixCross, true);
+  });
+  counter = 1;
+  autoBtn.disabled = false;
+  rstBtn.disabled = false;
+  addEvent();
+})
 
 addNum = e => {
   hoveredDiv = e.target;
@@ -84,7 +102,12 @@ remCross = e => {
 }
 
 fixCross = e => {
+  rstBtn.disabled = true;
+  autoBtn.disabled = true;
   hoveredDiv = e.target;
+  if(hoveredDiv.classList[0] === "cross" || hoveredDiv.classList[0] === "cross2"){
+    hoveredDiv  = hoveredDiv.parentNode;
+  }
   hoveredDiv.children[0].classList = "fix-cross";
   hoveredDiv.children[1].classList = "fix-cross2";
   if(!isMobile){
@@ -92,8 +115,51 @@ fixCross = e => {
     hoveredDiv.removeEventListener("mouseleave", remCross, true);
   }
   hoveredDiv.removeEventListener("click", fixCross, true);
+  compGame(hoveredDiv.innerText);
 }
 
+getCompNum = () => {
+  let num = [];
+  while(num.length < 25){
+    let ran = Math.floor(Math.random() * 25) + 1;
+    if(!num.includes(ran)){
+      num.push(ran);
+    }
+  }
+  return num;
+}
+
+
+let compNum = getCompNum()
+let userNumbers = [];
+let selectedCompNum = []
+compGame = usrNum => {
+  let iOfusrNum = compNum.indexOf(parseInt(usrNum));
+  userNumbers.push(usrNum)
+  compNum.splice(iOfusrNum, 1);
+  let compRandom = genRandPos();
+  compNum.splice(compRandom, 1);
+  allBox[compRandom].children[0].classList += "fix-cross ";
+  allBox[compRandom].children[1].classList += "fix-cross2 ";
+  if(!isMobile){
+    allBox[compRandom].removeEventListener("mouseenter", addCross, true);
+    allBox[compRandom].removeEventListener("mouseleave", remCross, true);
+  }
+  allBox[compRandom].removeEventListener("click", fixCross, true);
+  if(compNum.length === 0){
+    console.log(`Computer won...!`);
+  }
+}
+
+genRandPos = () => {
+  let compRandom = Math.floor(Math.random() * compNum.length) - 1;
+  if(selectedCompNum.includes(compRandom) || userNumbers.includes(compRandom)){
+    console.log("I should not be called")
+    genRandPos();
+  }
+  selectedCompNum.push(compRandom);
+  return compRandom;
+}
 addCrossEvent = () => {
   allBox.forEach(box => {
     box.style.cursor = "pointer";
