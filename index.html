@@ -7,10 +7,12 @@
     <title>BINGO!</title>
   </head>
   <body>
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css" />
     <div class="btn-container">
       <button id="auto" class="btn">Auto Generate</button>
       <button class="btn" id="reset">Reset</button>
+      <button class="btn" id="replay">Replay</button>
     </div>
     <div class="container">
       <div class="heading">
@@ -20,6 +22,7 @@
         <span class="g gname">G</span>
         <span class="o gname">O</span>
       </div>
+      <div class="boxes" id="box0"></div>
       <div class="boxes" id="box1"></div>
       <div class="boxes" id="box2"></div>
       <div class="boxes" id="box3"></div>
@@ -44,7 +47,6 @@
       <div class="boxes" id="box22"></div>
       <div class="boxes" id="box23"></div>
       <div class="boxes" id="box24"></div>
-      <div class="boxes" id="box25"></div>
     </div>
 
     <script src="./script.js" defer></script>
