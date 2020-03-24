@@ -19,9 +19,14 @@ body{
 }
 
 .heading span{
+  position: relative;
   -moz-user-select: none;
   user-select: none;
   -webkit-user-select: none;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
 }
 
 .container{
@@ -129,7 +134,6 @@ body{
   transform: rotate(45deg);
   position: absolute;
   left: calc(50% - 1px);
-  color: rgb(0, 0, 0);
   z-index: 10;
   display: flex;
   justify-content: center;
@@ -143,11 +147,34 @@ body{
   transform: rotate(-45deg);
   position: absolute;
   left: calc(50% - 1px);
-  color: rgba(0, 0, 0,0.7);
   z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 2px;
+  height: 45px;
+  background-color: black;
+}
+
+.comp-cross{
+  background-color: #f75a3f;
+}
+
+.game-cross{
+  position: absolute;
+  top: 0px;
+  left: calc(50% - 1px);
+  transform: rotate(45deg);
+  width: 2px;
+  height: 45px;
+  background-color: black;
+}
+
+.game-cross2 {
+  position: absolute;
+  top: 0px;
+  left: calc(50% - 1px);
+  transform: rotate(-45deg);
   width: 2px;
   height: 45px;
   background-color: black;
