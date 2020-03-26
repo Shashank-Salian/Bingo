@@ -10,7 +10,6 @@ const autoBtn = document.querySelector("#auto"),
 
 let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent), counter = 1, hoveredDiv;
 
-
 autoBtn.addEventListener("click", () => {
   let randNum, n = 25, arr = [];
   for (let i = 1; i <= 25; i++) arr[i - 1] = i;
