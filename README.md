@@ -1,4 +1,2 @@
 # Bingo
-This is the initial Build. (Not complete but working).
-This is without using classes.
-Working in all browsers.
+[Click here to visit](https://bit.ly/Sha02)
